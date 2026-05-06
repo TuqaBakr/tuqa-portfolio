@@ -8,6 +8,13 @@ defineProps<{
 // State to track which image is currently clicked/focused
 const selectedImage = ref<string | null>(null)
 
+// NEW HELPER FUNCTION: This automatically adds '/tuqa-portfolio/' to your links on GitHub!
+const getAssetUrl = (path: string | null | undefined) => {
+  if (!path) return ''
+  // Removes the first slash and adds Vite's base URL
+  return import.meta.env.BASE_URL + path.replace(/^\//, '')
+}
+
 // A dynamic array makes it incredibly easy to add or remove projects later
 const projectsList = [
   {
@@ -37,7 +44,7 @@ const projectsList = [
     descAr: 'أتمتة عملية حجز الصالات بالكامل عبر تطبيقات هواتف مزدوجة، مما أدى إلى زيادة الكفاءة التشغيلية بنسبة 30٪.',
     tags: ['Clean Architecture', 'Bloc', 'Google Maps API'],
     srsLink: '/projects/book_it/srs.pdf', 
-    presLink: '/projects/book_it/pres.pptm', // <-- Added the presentation link here!
+    presLink: '/projects/book_it/pres.pptm',
     images: [
       '/projects/book_it/logo.png',
       '/projects/book_it/bookit0.png',
@@ -70,9 +77,11 @@ const projectsList = [
     descEn: 'Developed a suite of multi-role patient and physician apps reducing manual scheduling tasks by 40%. Integrated secure video consultations.',
     descAr: 'تطوير مجموعة من تطبيقات المرضى والأطباء متعددة الأدوار مما قلل مهام الجدولة اليدوية بنسبة 40٪. يتضمن استشارات فيديو آمنة.',
     tags: ['Flutter', 'Healthcare Privacy', 'Video Consultation'],
-    srsLink: '/projects/medical_center/srs.pdf', // <-- Updated to your specific medical_center folder
+    srsLink: '/projects/medical_center/srs.pdf',
     images: [
       '/projects/medical_center/logo.jpg', 
+      '/projects/medical-1.jpg', 
+      '/projects/medical-2.jpg'
     ]
   },
   {
@@ -81,9 +90,8 @@ const projectsList = [
     descEn: 'Launched a feature-rich e-commerce application with advanced search, product reviews, and multi-lingual support, utilizing GetX.',
     descAr: 'إطلاق تطبيق تجارة إلكترونية غني بالميزات مع بحث متقدم وتقييمات المنتجات ودعم متعدد اللغات باستخدام GetX.',
     tags: ['GetX', 'MVC', 'REST APIs'],
-    // SRS link removed completely for Shopify!
     images: [
-       '/projects/spotify/spotify0.png',
+      '/projects/spotify/spotify0.png',
       '/projects/spotify/spotify1.png',
       '/projects/spotify/spotify2.png',
       '/projects/spotify/spotify3.png',
@@ -117,8 +125,9 @@ const projectsList = [
             <div class="flex overflow-x-auto snap-x snap-mandatory h-full hide-scrollbar">
               <div v-for="(img, i) in project.images" :key="i" class="min-w-full h-full snap-center flex items-center justify-center p-4">
                 
+                <!-- Notice we wrapped 'img' inside getAssetUrl() here! -->
                 <img 
-                  :src="img" 
+                  :src="getAssetUrl(img)" 
                   :alt="project.titleEn" 
                   class="max-h-full max-w-full object-contain drop-shadow-2xl rounded-lg cursor-pointer hover:opacity-80 transition-opacity" 
                   @click="selectedImage = img"
@@ -142,15 +151,14 @@ const projectsList = [
                 {{ isArabic ? project.titleAr : project.titleEn }}
               </h3>
               
-              <!-- Container for Document Buttons -->
               <div class="flex flex-wrap gap-2">
-                <!-- Presentation Button -->
-                <a v-if="project.presLink" :href="project.presLink" target="_blank" class="flex-shrink-0 flex items-center gap-1 px-3 py-1.5 bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-md hover:bg-blue-600 hover:text-white transition-colors text-sm font-bold border border-blue-500/20">
+                <!-- Applied getAssetUrl() to the presentation link -->
+                <a v-if="project.presLink" :href="getAssetUrl(project.presLink)" target="_blank" class="flex-shrink-0 flex items-center gap-1 px-3 py-1.5 bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-md hover:bg-blue-600 hover:text-white transition-colors text-sm font-bold border border-blue-500/20">
                   📊 {{ isArabic ? 'عرض تقديمي' : 'Presentation' }}
                 </a>
                 
-                <!-- SRS Document Button -->
-                <a v-if="project.srsLink" :href="project.srsLink" target="_blank" class="flex-shrink-0 flex items-center gap-1 px-3 py-1.5 bg-brand/10 dark:bg-brand-accent/10 text-brand dark:text-brand-accent rounded-md hover:bg-brand hover:text-white dark:hover:bg-brand-accent dark:hover:text-brand-dark transition-colors text-sm font-bold border border-brand/20">
+                <!-- Applied getAssetUrl() to the SRS link -->
+                <a v-if="project.srsLink" :href="getAssetUrl(project.srsLink)" target="_blank" class="flex-shrink-0 flex items-center gap-1 px-3 py-1.5 bg-brand/10 dark:bg-brand-accent/10 text-brand dark:text-brand-accent rounded-md hover:bg-brand hover:text-white dark:hover:bg-brand-accent dark:hover:text-brand-dark transition-colors text-sm font-bold border border-brand/20">
                   📄 {{ isArabic ? 'وثيقة SRS' : 'View SRS' }}
                 </a>
               </div>
@@ -172,7 +180,7 @@ const projectsList = [
 
     </div>
 
-    <!-- Full Screen Lightbox Modal -->
+    <!-- Applied getAssetUrl() to the full screen Lightbox Modal! -->
     <div 
       v-if="selectedImage" 
       class="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 backdrop-blur-sm"
@@ -181,7 +189,7 @@ const projectsList = [
       <button class="absolute top-6 right-6 text-white hover:text-brand-accent text-5xl transition-colors font-light">
         &times;
       </button>
-      <img :src="selectedImage" class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl" @click.stop />
+      <img :src="getAssetUrl(selectedImage)" class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl" @click.stop />
     </div>
 
   </section>
