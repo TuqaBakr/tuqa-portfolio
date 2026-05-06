@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@theme {
+  /* Your custom sophisticated deep green palette */
+  --color-brand-light: #e8f3ee;
+  --color-brand: #1a4731;
+  --color-brand-dark: #0f291c;
+  --color-brand-accent: #2ebd75;
+  
+  --color-surface-light: #ffffff;
+  --color-surface-dark: #1e1e1e;
+}
+
+/* Base HTML setup for smooth scrolling and dark mode transitions */
+html {
+  scroll-behavior: smooth;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
