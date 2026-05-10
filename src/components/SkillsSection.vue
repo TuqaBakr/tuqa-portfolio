@@ -8,7 +8,7 @@ const skillCategories = [
   {
     titleEn: 'Languages & Frameworks',
     titleAr: 'اللغات وإطارات العمل',
-    skills: ['Flutter (Dart)', 'Java', 'C++', 'Vue.js']
+    skills: ['Flutter (Dart)', 'Java', 'C++']
   },
   {
     titleEn: 'Architecture & Patterns',
