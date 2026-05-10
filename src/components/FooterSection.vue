@@ -5,7 +5,7 @@ defineProps<{
 </script>
 
 <template>
-  <footer class="bg-surface-light dark:bg-surface-dark py-12 border-t border-gray-200 dark:border-gray-800 transition-colors duration-300 mt-20 relative overflow-hidden">
+  <footer id="contact" class="bg-surface-light dark:bg-surface-dark pt-12 pb-28 md:pb-12 border-t border-gray-200 dark:border-gray-800 transition-colors duration-300 mt-20 relative overflow-hidden">
     <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand to-brand-accent"></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-8" :dir="isArabic ? 'rtl' : 'ltr'">
