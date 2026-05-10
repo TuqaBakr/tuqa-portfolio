@@ -80,8 +80,6 @@ const projectsList = [
     srsLink: '/projects/medical_center/srs.pdf',
     images: [
       '/projects/medical_center/logo.jpg', 
-      '/projects/medical-1.jpg', 
-      '/projects/medical-2.jpg'
     ]
   },
   {
